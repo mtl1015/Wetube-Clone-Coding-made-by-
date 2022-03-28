@@ -1,0 +1,31 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "made by terrypotter 2022 03 28 started",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec npx babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtl1015/Wetube-Clone-Coding-made-by-.git"
+  },
+  "keywords": [
+    "nodeJS"
+  ],
+  "author": "Terrypotter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mtl1015/Wetube-Clone-Coding-made-by-/issues"
+  },
+  "homepage": "https://github.com/mtl1015/Wetube-Clone-Coding-made-by-#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^2.0.15"
+  }
+}
