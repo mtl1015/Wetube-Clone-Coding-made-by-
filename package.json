@@ -4,7 +4,6 @@
   "description": "made by terrypotter 2022 03 28 started",
   "main": "index.js",
   "scripts": {
-    
     "dev": "nodemon --exec npx babel-node src/server.js"
   },
   "repository": {
@@ -21,7 +20,9 @@
   },
   "homepage": "https://github.com/mtl1015/Wetube-Clone-Coding-made-by-#readme",
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
@@ -29,5 +30,5 @@
     "@babel/preset-env": "^7.16.11",
     "nodemon": "^2.0.15"
   },
-  "type" : "module"
+  "type": "module"
 }
