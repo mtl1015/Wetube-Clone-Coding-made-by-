@@ -9,7 +9,9 @@ const logger = morgan("dev");
 
 const app = express();//application 생성
 
-
+app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
+app.use(logger);
 app.use("/",globalRouter);
 app.use("/users",userRouter);
 app.use("/videos",videoRouter);
