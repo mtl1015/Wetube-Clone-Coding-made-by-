@@ -1,7 +1,8 @@
-doctype html 
-html(lang="ko")
-    head 
-        title My Wetube 
-    body 
-        h1 Welcome to My Wetube!
-        footer &copy; 2022 Wetube 
+extends base
+include mixins/video
+
+block content
+    each video in videos
+        +video(video)
+    else
+        li Sorry nothing found.

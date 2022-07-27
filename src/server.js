@@ -4,7 +4,7 @@ import globalRouter from "./routers/globalRouter.js";
 import userRouter from "./routers/userRouter.js";
 import videoRouter from "./routers/videoRouter.js";
 
-const PORT = 3000;
+
 const logger = morgan("dev");
 
 const app = express();//application 생성
@@ -12,15 +12,9 @@ const app = express();//application 생성
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
+app.use(express.urlencoded({extended:true}));
 app.use("/",globalRouter);
 app.use("/users",userRouter);
 app.use("/videos",videoRouter);
 
- 
-
-
-const handleListening = () => {
-    console.log(`서버 ${PORT}이 잘 작동되고 있음`);
-}
-
-app.listen(PORT, handleListening);
+export default app;
