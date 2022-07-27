@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mtl1015/Wetube-Clone-Coding-made-by-#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.3",
     "mongoose": "^6.4.6",
     "morgan": "^1.10.0",
