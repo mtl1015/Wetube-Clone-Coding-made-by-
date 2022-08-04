@@ -74,7 +74,7 @@ export const deleteVideo = async (req, res) => {
 
 export const search = async (req, res) => {
   const { keyword } = req.query;
-  let  videos = []
+  let videos = []
   if (keyword) {
     videos = await Video.find({
       title: {
@@ -82,5 +82,5 @@ export const search = async (req, res) => {
       },
     });
   }
-  return res.render("search", { pageTitle: "Search" }, videos);
+  return res.render("search", { pageTitle: "Search", videos});
 };

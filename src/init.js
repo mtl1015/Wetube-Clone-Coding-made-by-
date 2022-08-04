@@ -1,3 +1,4 @@
+import "dotenv/config";
 import "./db.js";
 import "./models/Video.js";
 import app from "./server.js";
