@@ -40,7 +40,17 @@ export const postJoin = async (req, res) => {
 
 
 };
-export const edit = (req, res) => res.send("Edit User");
+export const getEdit = (req, res) => {
+    return res.render("edit-profile", { pageTitle: "Edit Profile" });
+}
+export const postEdit = async (req, res) => {
+    const { session: { user: { _id } }, body: { email, username, name, location }, } = req;
+    const updatedUser = await User.findByIdAndUpdate(_id, {
+        name, email, location, username,
+    }, { new: true });
+    req.session.user = updatedUser;
+    return res.rednder("edit-profile");
+}
 export const getLogin = (req, res) =>
     res.render("login", { pageTitle: "Login" });
 
@@ -115,14 +125,15 @@ export const finishGithubLogin = async (req, res) => {
             (email) => email.primary === true && email.verified === true
         );
         if (!emailObj) {
+            //set notification
             return res.redirect("/login");
         }
         let user = await User.findOne({ email: emailObj.email });
         if (!user) {
-            const user = await User.create({
+            user = await User.create({
                 name: userData.name,
                 avatarURL: userData.avata_url,
-                username: userData.username,
+                username: userData.twitter_username,
                 email: emailObj.email,
                 password: "",
                 socialOnly: true,
@@ -141,4 +152,29 @@ export const logout = (req, res) => {
     req.session.destroy();
     return res.redirect("/");
 };
+export const getChangePassword = (req, res) => {
+    if (req.session.user.socialOnly === true) {
+        return res.redirect("/")
+        //social, 그니깐 Github로 로그인 했다면, 비밀번호 창을 열지 못하게 만드는 것!
+    }
+    return res.render("users/change-password", { pageTitle: "Change Password" });
+}
+export const postChangePassowrd = async (req, res) => {
+    const { session: { user: { _id, password } }, body: { oldPassword, newPassword, newPasswordConfirmation } } = req;
+    const ok = await bcrypt.compare(oldPassword, password)
+    if (!ok) {
+        return res.status(400).render("users/change-password", { pagedTitle: "Change Password", errorMessage: "The password does not match the confirmation" })
+    }
+    if (newPassword !== newPasswordConfirmation) {
+        return res.status(400).render("users/change-password", { pagedTitle: "Change Password", errorMessage: "The password does not match the confirmation" })
+        //브라우저는 늘 status 코드를 주시하고 있다는 것을 기억해야 한다.
+    }
+    const user = await User.findById(_id);
+    user.password = newPassword;
+    await user.save();
+    req.session.user.password = user.password;
+    //우리는 db와 session 2개의 저장소를 쓰고 있다. 그렇기 때문에 session에서 정보를 받으면 업데이트도 해주어야 한다. 
+    return res.redirect("/users/logout");
+}
+
 export const see = (req, res) => res.send("See User");

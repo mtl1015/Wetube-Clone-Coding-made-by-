@@ -1,0 +1,14 @@
+extends base
+
+block content
+    form(method="POST")
+        input(placeholder="Email" name="email", type="email", value=loggedInUser.email, required )
+        input(placeholder="User Name" name="username", type="text", value=loggedInUser.username,required )
+        input(placeholder="Name" name="name", type="text",value=loggedInUser.name, required )
+        input(placeholder="Location" name="location", type="text",value=loggedInUser.location, required )
+        input(type="submit", value="Update Profile")
+        if !loggedInUser.socialOnly
+            hr
+            a(href="change-password") Change password &rarr;
+        //상대경로를 이용해서 링크를 연결해주는 모습.
+        //다만, socialOnly를 가지지 않을때, 그러니깐, Github를 통해서 로그인 하면 Change Password를 보지 못하게 만드는 것이다.
