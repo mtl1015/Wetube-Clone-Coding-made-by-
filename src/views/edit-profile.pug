@@ -1,7 +1,11 @@
 extends base
 
 block content
-    form(method="POST")
+    img(src="/" + loggedInUser.avatarURL, width="100", height="100")
+    form(method="POST", enctype="multipart/form-data")
+        //encoding type = enctype 라고 표기
+        label(for="avatar") Avatar 
+        input(type="file", id="avatar", name="avatar", accept=".jpg, .png, .jpeg")
         input(placeholder="Email" name="email", type="email", value=loggedInUser.email, required )
         input(placeholder="User Name" name="username", type="text", value=loggedInUser.username,required )
         input(placeholder="Name" name="name", type="text",value=loggedInUser.name, required )

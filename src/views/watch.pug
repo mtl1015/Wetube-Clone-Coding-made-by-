@@ -1,13 +1,20 @@
 extends base
 
 block content
+    video(src="/"+video.fileURL, controls)
     // h3 #{video.title} 
     // h5 #{video.views} #{video.views === 1 ? "view" : "views"} 
     // 영어 단수, 복수 구분할 때 써야하므로 기억해야 한다.
     div
         p=video.description
         small=video.createdAt
-    a(href=`${video.id}/edit`) Edit Video &rarr;
-    br
-    a(href=`${video.id}/delete`) Delete Video &rarr;
+        br
+    div 
+        small Upload by
+            a(href=`/users/${video.owner._id}`)=video.owner.name
+    if String(video.owner._id) === String(loggedInUser._id)
+    
+        a(href=`${video.id}/edit`) Edit Video &rarr;
+        br
+        a(href=`${video.id}/delete`) Delete Video &rarr;
 
