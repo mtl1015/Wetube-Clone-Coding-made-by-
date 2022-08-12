@@ -17,7 +17,7 @@ export const home = async (req, res) => {
     return res.render("404", { pageTitle: "Video not found." });
   }
   return res.render("home", { pageTitle: "Home", videos });
-}
+};
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner");
@@ -38,11 +38,13 @@ export const watch = async (req, res) => {
   //Video model이 populate한 것의 대상이 User가 된 것이다.
   //그래서 user객체 전체를 owner라는 이름으로 가지게 되는 것이다!!
 
-  return res.render("watch", { pageTitle: video.title, video });//원래는 owner가 있다.
-}
+  return res.render("watch", { pageTitle: video.title, video }); //원래는 owner가 있다.
+};
 export const getEdit = async (req, res) => {
   const { id } = req.params;
-  const { user: { _id } } = req.session;
+  const {
+    user: { _id },
+  } = req.session;
   const video = await Video.findById(id);
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
@@ -54,7 +56,9 @@ export const getEdit = async (req, res) => {
 };
 export const postEdit = async (req, res) => {
   const { id } = req.params;
-  const { user: { _id } } = req.session;
+  const {
+    user: { _id },
+  } = req.session;
   const { title, description, hashtags } = req.body;
   const video = await Video.exists({ _id: id });
   if (!video) {
@@ -69,14 +73,16 @@ export const postEdit = async (req, res) => {
     hashtags: Video.formatHashtags(hashtags),
   });
   return res.redirect(`/videos/${id}`);
-}
+};
 
 export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: "Upload Video" });
 };
 
 export const postUpload = async (req, res) => {
-  const { user: { _id } } = req.session;
+  const {
+    user: { _id },
+  } = req.session;
   const { path: fileURL } = req.file;
   const { title, description, hashtags } = req.body;
   try {
@@ -100,7 +106,9 @@ export const postUpload = async (req, res) => {
   }
 };
 export const deleteVideo = async (req, res) => {
-  const { user: { _id } } = req.session;
+  const {
+    user: { _id },
+  } = req.session;
   const { id } = req.params;
   const user = await User.findById(_id);
   const video = await Video.findById(id);
@@ -118,7 +126,7 @@ export const deleteVideo = async (req, res) => {
 
 export const search = async (req, res) => {
   const { keyword } = req.query;
-  let videos = []
+  let videos = [];
   if (keyword) {
     videos = await Video.find({
       title: {

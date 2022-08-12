@@ -4,7 +4,8 @@
   "description": "made by terrypotter 2022 03 28 started",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec npx babel-node src/init.js"
+    "dev": "nodemon --exec npx babel-node src/init.js",
+    "assets": "webpack --config webpack.config.cjs"
   },
   "repository": {
     "type": "git",
@@ -35,7 +36,10 @@
     "@babel/core": "^7.17.8",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
-    "nodemon": "^2.0.15"
+    "babel-loader": "^8.2.5",
+    "nodemon": "^2.0.15",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   },
   "type": "module"
 }
