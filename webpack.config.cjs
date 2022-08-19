@@ -1,3 +1,4 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
 //여기는 webpack파일. webpack CLI를 이용해서 콘솔에서 webpack을 불러 올 수 있다.
@@ -16,10 +17,22 @@ const path = require("path");
 //즉, path.resolve(__dirname, "assests", "js")라 하면, 우리가 원하는 파일 경로를 얻을 수 있을 것이다.
 module.exports = {
   mode: "development",
-  entry: "./src/client/js/main.js",
+  watch: true,
+  entry: {
+    main: "./src/client/js/main.js",
+    videoPlayer: "./src/client/js/videoPlayer.js",
+  },
+  mode: "development",
+  watch: true,
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "css/style.css",
+    }),
+  ], //이건, css랑 javascript를 분리하게끔 해주는 것이다.그니깐, css를 별도의 파일로 추출해준다.
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "assets", "js"),
+    filename: "js/[name].js", //만약 여기에다가 filename: "js/[name].js"로 붙여주게 되면, entry에 있는 내용을 그대로 가져다 쓸 수 있다.
+    path: path.resolve(__dirname, "assets"),
+    clean: true, //output folder를 build시작하기 전에 clean 해주는 것.
   },
   module: {
     rules: [
@@ -31,6 +44,12 @@ module.exports = {
             presets: [["@babel/preset-env", { targets: "defaults" }]],
           },
         },
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        //근데 왜 역순으로 입력해요? 왜냐면 Webpack은 use를 역순으로 하기 때문이다!
+        //이제 webpack은 제일 먼저 우리의 sass code를 가지고 일반적인 css로 변경하고, 그것을 css-loader에 전달하고, 마지막으로 그것을 style에 전달할 것이다.(style: css를 브라우저에 보이게 하는 장치)
       },
     ],
   },

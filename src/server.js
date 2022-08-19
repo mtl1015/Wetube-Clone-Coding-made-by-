@@ -41,7 +41,7 @@ app.get("/add-one", (req, res, next) => {
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads")); // "/uploads"에 들어갈때 uploads 폴더를 노출시킨다.
 //static은 내가 노출시키고 싶은 폴더의 이름을 써서, 그 폴더를 브라우저에게 노출시키는 것이다.
-app.use("/assets", express.static("assets"));
+app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);

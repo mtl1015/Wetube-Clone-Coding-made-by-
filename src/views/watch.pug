@@ -1,20 +1,44 @@
 extends base
 
 block content
-    video(src="/"+video.fileURL, controls)
+    div#videoContainer
+        video(src="/"+video.fileURL)
+        div#videoControls.videoControls
+            div.videoControls__play
+                span#play.videoControls__playBtn
+                    i.fas.fa-play
+                div.videoControls__time
+                    span#currentTime 00:00
+                    span  / 
+                    span#totalTime 00:00
+            input#timeline(type="range",step="1", value="0", min="0").videoControls__timeline
+            div.videoControls__volume
+                input#volume(type="range",step="0.1", value=0.5, min="0", max="1")
+                span#mute
+                    i.fas.fa-volume-up
+                span#fullscreen
+                    i.fas.fa-expand
+        
     // h3 #{video.title} 
     // h5 #{video.views} #{video.views === 1 ? "view" : "views"} 
     // 영어 단수, 복수 구분할 때 써야하므로 기억해야 한다.
-    div
-        p=video.description
-        small=video.createdAt
-        br
-    div 
-        small Upload by
-            a(href=`/users/${video.owner._id}`)=video.owner.name
-    if String(video.owner._id) === String(loggedInUser._id)
-    
-        a(href=`${video.id}/edit`) Edit Video &rarr;
-        br
-        a(href=`${video.id}/delete`) Delete Video &rarr;
 
+    //임시장치: video를 만드는 것에만 집중하기 위함.
+        div
+            p=video.description
+            small=video.createdAt
+            br
+        div 
+            small Upload by
+                a(href=`/users/${video.owner._id}`)=video.owner.name
+        if String(video.owner._id) === String(loggedInUser._id)
+        
+            a(href=`${video.id}/edit`) Edit Video &rarr;
+            br
+            a(href=`${video.id}/delete`) Delete Video &rarr;
+    //그런데, 이건 html에 코멘트 내용으로 보이게 되는데, 그렇게 하지 않기 위해서는
+    //-이것을 쓰면 html에 comment로도 안보이는 pug만의 기록물로 남게 된다.
+
+block scripts 
+    script(src="/static/js/videoPlayer.js")
+    //(-->를 이어받아서) 이렇게 하면, static를 이용해 assets폴더에 들어가서 그 안의 js폴더 안에 있는 videoPlayer.js를 쓸 수 있도록 한다.

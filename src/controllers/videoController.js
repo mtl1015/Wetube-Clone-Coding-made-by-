@@ -12,7 +12,9 @@ console.log("finished")
 */
 
 export const home = async (req, res) => {
-  const videos = await Video.find({}).sort({ createdAt: "desc" });
+  const videos = await Video.find({})
+    .sort({ createdAt: "desc" })
+    .populate("owner");
   if (!videos) {
     return res.render("404", { pageTitle: "Video not found." });
   }
@@ -132,7 +134,7 @@ export const search = async (req, res) => {
       title: {
         $regex: new RegExp(`${keyword}$`, "i"),
       },
-    });
+    }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
 };

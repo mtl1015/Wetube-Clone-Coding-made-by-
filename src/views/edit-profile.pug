@@ -1,8 +1,9 @@
 extends base
 
 block content
-    img(src="/" + loggedInUser.avatarURL, width="100", height="100")
-    form(method="POST", enctype="multipart/form-data")
+    div.profile__data
+        img(src="/" + loggedInUser.avatarURL).avatar
+    form(method="POST", enctype="multipart/form-data").edit-profile__form
         //encoding type = enctype 라고 표기
         label(for="avatar") Avatar 
         input(type="file", id="avatar", name="avatar", accept=".jpg, .png, .jpeg")
@@ -12,7 +13,7 @@ block content
         input(placeholder="Location" name="location", type="text",value=loggedInUser.location, required )
         input(type="submit", value="Update Profile")
         if !loggedInUser.socialOnly
-            hr
-            a(href="change-password") Change password &rarr;
+            div.edit-profile__password  
+                a(href="change-password") Change password &rarr;
         //상대경로를 이용해서 링크를 연결해주는 모습.
         //다만, socialOnly를 가지지 않을때, 그러니깐, Github를 통해서 로그인 하면 Change Password를 보지 못하게 만드는 것이다.

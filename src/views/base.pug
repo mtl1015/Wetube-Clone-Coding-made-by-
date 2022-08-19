@@ -2,35 +2,17 @@ doctype html
 html(lang="ko")
     head
         title #{pageTitle} | Wetube
-        link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css")
+        link(rel="stylesheet" href="/static/css/style.css")
     body
-        header 
-            h1=pageTitle 
-            nav 
-                ul 
-                    li
-                        a(href="/") Home
-                    if loggedIn  
-                        li
-                            a(href="/users/edit") Edit Profile
-                        li 
-                            a(href=`/users/${loggedInUser._id}`) My Profile
-                        li  
-                            a(href="/users/logout") Log Out
-                        li 
-                            a(href="/my-profile") #{loggedInUser.name}의 Profile
-                    else 
-                        li 
-                            a(href="/login") Login             
-                        li 
-                            a(href="/join") Join
-
-                    li
-                        a(href="/search") Search
-                    li
-                        a(href="/videos/upload") Upload Video  
+        include partials/header
         main 
             block content
         include partials/footer
-        script(src="/static/js/main.js")
-        //이렇게 하면 모든(현재)pug 파일들이 못생긴 javascript에 접근 할 수 있다.
+        //기존코드: script(src="/static/js/main.js")
+        //이렇게 하면 모든(현재)pug 파일들이 못생긴 javascript 및 css에 접근 할 수 있다.
+        //물론 server.js에서 app.use ~ static을 이용한 연결도 해주어야 한다.
+        //새로운 코드
+        block scripts
+        //이러면, block content가 다른 template를 커버칠 수 있는 것처럼,
+        //block scripts는 다른 scrips를 커버 칠 수 있다. (watch.puh로 이동)
