@@ -21,16 +21,20 @@
   },
   "homepage": "https://github.com/mtl1015/Wetube-Clone-Coding-made-by-#readme",
   "dependencies": {
+    "@ffmpeg/core": "^0.8.5",
+    "@ffmpeg/ffmpeg": "^0.9.7",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
+    "express-flash": "^0.0.2",
     "express-session": "^1.17.3",
     "mongoose": "^6.4.6",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.6.1",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",

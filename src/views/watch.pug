@@ -1,7 +1,9 @@
 extends base
 
 block content
-    div#videoContainer
+    div#videoContainer(data-id=video._id)
+        //data attribute를 이용해서 원하는 어떤 데이터든 html에 저장할 수 있다.
+        //이것은 백엔드랑 프론트엔드 사이에 데이터를 공유하는 가장 쉬운 방법.
         video(src="/"+video.fileURL)
         div#videoControls.videoControls
             div.videoControls__play
@@ -23,19 +25,18 @@ block content
     // h5 #{video.views} #{video.views === 1 ? "view" : "views"} 
     // 영어 단수, 복수 구분할 때 써야하므로 기억해야 한다.
 
-    //임시장치: video를 만드는 것에만 집중하기 위함.
-        div
-            p=video.description
-            small=video.createdAt
-            br
-        div 
-            small Upload by
-                a(href=`/users/${video.owner._id}`)=video.owner.name
-        if String(video.owner._id) === String(loggedInUser._id)
-        
-            a(href=`${video.id}/edit`) Edit Video &rarr;
-            br
-            a(href=`${video.id}/delete`) Delete Video &rarr;
+    div
+        p=video.description
+        small=video.createdAt
+        br
+    div 
+        small Upload by
+            a(href=`/users/${video.owner._id}`)=video.owner.name
+    if String(video.owner._id) === String(loggedInUser._id)
+    
+        a(href=`${video.id}/edit`) Edit Video &rarr;
+        br
+        a(href=`${video.id}/delete`) Delete Video &rarr;
     //그런데, 이건 html에 코멘트 내용으로 보이게 되는데, 그렇게 하지 않기 위해서는
     //-이것을 쓰면 html에 comment로도 안보이는 pug만의 기록물로 남게 된다.
 

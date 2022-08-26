@@ -113,6 +113,18 @@ const handleMouseLeave = () => {
   const id = setTimeout(hideControls, 3000);
   console.log(id);
 };
+
+const handleEnded = async () => {
+  const { id } = videoContainer.dataset;
+  //fetch(`/api/videos/${id}/views`);
+  //이런식으로 하면 fetch에 get 요청을 보낸다.
+  //근데 우리는 post요청을 보내야 한다.(그렇게 apirouter에서 설정함)
+  //cf)왜 apirouter는 post요청을 보냈는가? request의 body에 들어가기 위함.
+  await fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
+};
+
 const handleVideoClick = () => {
   handlePlay();
 };
@@ -159,6 +171,7 @@ timeLine.addEventListener("change", handleTimelineSet);
 fullScreenBtn.addEventListener("click", handleFullscreen);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
+video.addEventListener("ended", handleEnded);
 video.addEventListener("click", handleVideoClick);
 fullScreenBtn.addEventListener("click", handleFullscreen);
 

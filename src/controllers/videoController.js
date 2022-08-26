@@ -85,16 +85,19 @@ export const postUpload = async (req, res) => {
   const {
     user: { _id },
   } = req.session;
-  const { path: fileURL } = req.file;
+  console.log(req.files);
+  const { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
   try {
     const newVideo = await Video.create({
       title,
       description,
-      fileURL,
+      fileURL: Video.changePathFormula(video[0].path),
+      thumbURL: Video.changePathFormula(thumb[0].path),
       owner: _id, //user object 전체를 전송할 필요 없이 id만 전송
       hashtags: Video.formatHashtags(hashtags),
     });
+    console.log(req.files);
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();
@@ -137,4 +140,18 @@ export const search = async (req, res) => {
     }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
+};
+
+//이번에는 pug를 렌더링하지 않는 controller를 만들어 볼거에요!
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    //status를 써서 상태코드를 보내려면, 그 뒤에 꼭 render로 템플릿을 만들거나, redirect로 이동하는 사이트를 지정해주어야 한다.
+    //그런것을 안할려면, sendStatus를 쓰면 된다.
+    return res.sendStatus(404);
+  }
+  video.meta.views = video.meta.views + 1;
+  await video.save();
+  return res.sendStatus(200);
 };

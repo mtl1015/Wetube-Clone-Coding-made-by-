@@ -2,10 +2,12 @@ import express from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import morgan from "morgan";
+import flash from "express-flash";
 import { localsMiddleware } from "./middlewares.js";
 import rootRouter from "./routers/rootRouter.js";
 import userRouter from "./routers/userRouter.js";
 import videoRouter from "./routers/videoRouter.js";
+import apiRouter from "./routers/apiRouter.js";
 
 const logger = morgan("dev");
 
@@ -13,6 +15,11 @@ const app = express(); //application 생성
 
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -38,6 +45,7 @@ app.get("/add-one", (req, res, next) => {
   return res.send(`${req.session.id} ${req.session.potato}`);
 });
 
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads")); // "/uploads"에 들어갈때 uploads 폴더를 노출시킨다.
 //static은 내가 노출시키고 싶은 폴더의 이름을 써서, 그 폴더를 브라우저에게 노출시키는 것이다.
@@ -45,5 +53,5 @@ app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
-
+app.use("/api", apiRouter);
 export default app;

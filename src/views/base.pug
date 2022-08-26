@@ -13,6 +13,8 @@ html(lang="ko")
         //이렇게 하면 모든(현재)pug 파일들이 못생긴 javascript 및 css에 접근 할 수 있다.
         //물론 server.js에서 app.use ~ static을 이용한 연결도 해주어야 한다.
         //새로운 코드
+        script(src="/static/js/main.js") 
         block scripts
+            
         //이러면, block content가 다른 template를 커버칠 수 있는 것처럼,
         //block scripts는 다른 scrips를 커버 칠 수 있다. (watch.puh로 이동)
