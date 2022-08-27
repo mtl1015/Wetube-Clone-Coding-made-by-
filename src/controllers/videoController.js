@@ -1,6 +1,5 @@
 import Video from "../models/Video.js";
 import User from "../models/User.js";
-import comment from "../models/Comment.js";
 import { async } from "regenerator-runtime";
 import Comment from "../models/Comment.js";
 /*
