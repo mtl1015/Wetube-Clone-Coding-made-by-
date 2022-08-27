@@ -6,7 +6,7 @@ import "./models/Comment.js";
 import "./models/User.js";
 import app from "./server.js";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const handleListening = () => {
   console.log(`서버 ${PORT}이 잘 작동되고 있음`);
