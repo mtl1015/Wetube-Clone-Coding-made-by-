@@ -19,7 +19,10 @@ header
                         if !loggedInUser.avatarURL
                             span ❤
                         else 
-                            img.header__avatar(src="/" + loggedInUser.avatarURL)
+                            if loggedInUser.socailOnly 
+                                img.header__avatar(src=loggedInUser.avatarURL)
+                            else 
+                                img.header__avatar(src="/" + loggedInUser.avatarURL)
             else 
                 li 
                     a(href="/login") Login             
