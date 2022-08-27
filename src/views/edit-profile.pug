@@ -2,7 +2,10 @@ extends base
 
 block content
     div.profile__data
-        img(src="/" + loggedInUser.avatarURL).avatar
+        if loggedInUser.socailOnly 
+            img.avatar(src=loggedInUser.avatarURL)
+        else 
+            img.avatar(src="/" + loggedInUser.avatarURL)
     form(method="POST", enctype="multipart/form-data").edit-profile__form
         //encoding type = enctype 라고 표기
         label(for="avatar") Avatar 
