@@ -4,9 +4,12 @@
   "description": "made by terrypotter 2022 03 28 started",
   "main": "index.js",
   "scripts": {
-    "build:server": "babel src/init.js -d build",
+    "start": "node build/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build",
+    "build:assets": "webpack --mode=development",
     "dev:server": "nodemon",
-    "dev:assets": "webpack"
+    "dev:assets": "webpack --mode=development -w"
   },
   "repository": {
     "type": "git",
@@ -51,6 +54,5 @@
     "style-loader": "^3.3.1",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
-  },
-  "type": "module"
+  }
 }

@@ -26,7 +26,6 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner").populate("comments");
-  console.log(video);
   //(원래는 코드)const owner = await User.findById(video.owner);
   //이런 방식으로 Video 랑 User를 연결시킬 수 있다.
   //다시 말하면, User collection의 ID를 Video에 있는 owner라는 객체에 들어있는 id로 찾는 것이다.
@@ -90,7 +89,6 @@ export const postUpload = async (req, res) => {
   const {
     user: { _id },
   } = req.session;
-  console.log(req.files);
   const { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
   try {
@@ -102,13 +100,11 @@ export const postUpload = async (req, res) => {
       owner: _id, //user object 전체를 전송할 필요 없이 id만 전송
       hashtags: Video.formatHashtags(hashtags),
     });
-    console.log(req.files);
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();
     return res.redirect("/");
   } catch (error) {
-    console.log(error);
     return res.render("upload", {
       pageTitle: "Upload Video",
       errorMessage: error._message,

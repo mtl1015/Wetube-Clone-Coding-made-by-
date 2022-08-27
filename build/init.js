@@ -1,5 +1,7 @@
 "use strict";
 
+require("regenerator-runtime");
+
 require("dotenv/config");
 
 require("./db.js");

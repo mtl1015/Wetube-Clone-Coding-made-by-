@@ -16,16 +16,12 @@ const BASE_JS = "./src/client/js/";
 //path.resolve(a,b,c)는 안에 있는 속성을 파일 경로의 형식으로 하나로 합치는 것이다.
 //즉, path.resolve(__dirname, "assests", "js")라 하면, 우리가 원하는 파일 경로를 얻을 수 있을 것이다.
 module.exports = {
-  mode: "development",
-  watch: true,
   entry: {
     main: BASE_JS + "main.js",
     videoPlayer: BASE_JS + "videoPlayer.js",
     recorder: BASE_JS + "recorder.js",
     commentSection: BASE_JS + "commentSection.js",
   },
-  mode: "development",
-  watch: true,
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/style.css",
