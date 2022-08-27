@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: false }, //gitHub로 로그인하면 비밀번호가 없을테니깐 이걸 필수로 지정하면 안된다.
   name: { type: String, required: true },
   location: String,
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
 });
 

@@ -159,11 +159,13 @@ export const finishGithubLogin = async (req, res) => {
   }
 };
 export const logout = (req, res) => {
+  req.flash("info", "Bye Bye");
   req.session.destroy();
   return res.redirect("/");
 };
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
+    req.flash("error", "Can't change password.");
     return res.redirect("/");
     //social, 그니깐 Github로 로그인 했다면, 비밀번호 창을 열지 못하게 만드는 것!
   }
@@ -178,25 +180,22 @@ export const postChangePassowrd = async (req, res) => {
   } = req;
   const ok = await bcrypt.compare(oldPassword, password);
   if (!ok) {
-    return res
-      .status(400)
-      .render("users/change-password", {
-        pagedTitle: "Change Password",
-        errorMessage: "The password does not match the confirmation",
-      });
+    return res.status(400).render("users/change-password", {
+      pagedTitle: "Change Password",
+      errorMessage: "The password does not match the confirmation",
+    });
   }
   if (newPassword !== newPasswordConfirmation) {
-    return res
-      .status(400)
-      .render("users/change-password", {
-        pagedTitle: "Change Password",
-        errorMessage: "The password does not match the confirmation",
-      });
+    return res.status(400).render("users/change-password", {
+      pagedTitle: "Change Password",
+      errorMessage: "The password does not match the confirmation",
+    });
     //브라우저는 늘 status 코드를 주시하고 있다는 것을 기억해야 한다.
   }
   const user = await User.findById(_id);
   user.password = newPassword;
   await user.save();
+  req.flash("info", "Password updated");
   req.session.user.password = user.password;
   //우리는 db와 session 2개의 저장소를 쓰고 있다. 그렇기 때문에 session에서 정보를 받으면 업데이트도 해주어야 한다.
   return res.redirect("/users/logout");

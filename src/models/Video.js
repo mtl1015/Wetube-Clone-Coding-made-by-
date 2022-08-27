@@ -11,6 +11,7 @@ const videoSchema = new mongoose.Schema({
     views: { type: Number, default: 0, required: true },
     rating: { type: Number, default: 0, required: true },
   },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   //owner은 type이 obejectid이다.ref는 mongoose에게 어떤 model의 id를 참조할지 알려줘야 하기 때문이다.
 });

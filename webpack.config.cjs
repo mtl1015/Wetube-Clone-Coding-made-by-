@@ -1,6 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
-
+const BASE_JS = "./src/client/js/";
 //여기는 webpack파일. webpack CLI를 이용해서 콘솔에서 webpack을 불러 올 수 있다.
 //여기서는 webpack이 읽을 configuration파일을 내보낼 것이다.
 //두가지를 조심해야 한다.그니깐, 2가지 특성이 있다.
@@ -19,9 +19,10 @@ module.exports = {
   mode: "development",
   watch: true,
   entry: {
-    main: "./src/client/js/main.js",
-    videoPlayer: "./src/client/js/videoPlayer.js",
-    recorder: "./src/client/js/recorder.js",
+    main: BASE_JS + "main.js",
+    videoPlayer: BASE_JS + "videoPlayer.js",
+    recorder: BASE_JS + "recorder.js",
+    commentSection: BASE_JS + "commentSection.js",
   },
   mode: "development",
   watch: true,

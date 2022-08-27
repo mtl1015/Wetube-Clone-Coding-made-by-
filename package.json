@@ -4,6 +4,7 @@
   "description": "made by terrypotter 2022 03 28 started",
   "main": "index.js",
   "scripts": {
+    "build:server": "babel src/init.js -d build",
     "dev:server": "nodemon",
     "dev:assets": "webpack"
   },
@@ -37,7 +38,8 @@
     "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.8",
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.5",
