@@ -111,14 +111,21 @@ const handleStart = () => {
     videoPreview.src = videoFile;
     videoPreview.loop = true;
     videoPreview.play();
+    //브라우저 메모리에만 이용가능한 URL를 만든다.
+    //그니깐, 브라우저의 메모리만 가리키는 URl이라고 보면 된다.
+    //그니깐, 브라우저가 만든 URL이라 브라우저만 접근이 가능하다. 브라우저 상에만 존재하므로
+    //그래서 이 파일로 뭘 해볼려면, 파일을 URl에 집어넣어서 접근가능하게끔 만들어야 한다.
   };
   recorder.start();
 };
-
+//미리보기용
 const init = async () => {
   stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
-    video: true,
+    video: {
+      width: 1024,
+      height: 576,
+    },
   });
   videoPreview.srcObject = stream;
   videoPreview.play();
