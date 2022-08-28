@@ -19,7 +19,7 @@ header
                         if !loggedInUser.avatarURL
                             span ❤
                         else 
-                            if loggedInUser.socailOnly 
+                            if loggedInUser.avatarURL.includes("github")
                                 img.header__avatar(src=loggedInUser.avatarURL)
                             else 
                                 img.header__avatar(src="/" + loggedInUser.avatarURL)
