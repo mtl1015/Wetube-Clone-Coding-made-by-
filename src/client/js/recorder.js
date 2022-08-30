@@ -130,9 +130,7 @@ const init = async () => {
     });
     videoPreview.srcObject = stream;
     videoPreview.play();
-  } catch (err) {
-    throw expression;
-  }
+  } catch (e) {}
 };
 
 init();
