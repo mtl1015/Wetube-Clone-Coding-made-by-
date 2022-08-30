@@ -120,17 +120,15 @@ const handleStart = () => {
 };
 //미리보기용
 const init = async () => {
-  try {
-    stream = await navigator.mediaDevices.getUserMedia({
-      audio: false,
-      video: {
-        width: 1024,
-        height: 576,
-      },
-    });
-    videoPreview.srcObject = stream;
-    videoPreview.play();
-  } catch (e) {}
+  stream = await navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: {
+      width: 1024,
+      height: 576,
+    },
+  });
+  videoPreview.srcObject = stream;
+  videoPreview.play();
 };
 
 init();
