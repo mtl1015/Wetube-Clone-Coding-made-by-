@@ -48,7 +48,7 @@ const handleDownload = async () => {
   );
   //그니깐 저 위 코드는 webm파일을 mp4로 변환하고 싶다고 ffmpeg에게 이야기하는 것이고,
   //이 코드는 webmㅠㅏ일을 가지고 jpg 썸네일을 추출하고 ffmpeg에게 이야기하는 것이다.
-  const thumbFile = ffmpeg.FS("readFile", "thumbnail.jpg");
+  const thumbFile = await ffmpeg.FS("readFile", "thumbnail.jpg");
   const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
   const thumbURL = URL.createObjectURL(thumbBlob);
 
@@ -60,7 +60,7 @@ const handleDownload = async () => {
   //------------------------------------------------------------------------
   //이제 output.mp4를 이용해 볼 것이다. FS를 이용해서!
 
-  const mp4File = ffmpeg.FS("readFile", "output.mp4");
+  const mp4File = await ffmpeg.FS("readFile", "output.mp4");
 
   //자바스크립트가 파일을 표현하는 방법 [1, 23, 42, 52, 161, ...등등] 몇십만개로 구성된 배열로 표현한다.
   //당연히, 이것을 파일 또는 영상처럼 표현할 수는 없다.
